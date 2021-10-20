@@ -8,4 +8,5 @@ import com.photo.api.user.ui.model.user.User;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
+	User findByEmail(String email);
 }
