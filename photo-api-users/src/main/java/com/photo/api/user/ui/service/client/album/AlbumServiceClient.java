@@ -11,6 +11,6 @@ import com.photo.api.user.ui.model.dto.album.AlbumResponseModel;
 @FeignClient("album-ws")
 public interface AlbumServiceClient {
 
-	@GetMapping(path = "/users/{id}/albums")
+	@GetMapping(path = "/users/{id}/albumss")
 	public List<AlbumResponseModel> getAlbums(@PathVariable(name = "id",required = true) String userId);
 }

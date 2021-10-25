@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
+import feign.Logger;
+import feign.Logger.Level;
+
 @SpringBootApplication
 @EnableEurekaClient
 @EnableFeignClients
@@ -27,6 +30,11 @@ public class PhotoApiUsersApplication {
 	@LoadBalanced
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
+	}
+	
+	@Bean
+	Level fiegnLogger(){
+		return Logger.Level.FULL;
 	}
 
 }
