@@ -6,6 +6,8 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -27,6 +29,8 @@ public class UserServiceImpl implements UserService {
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	private RestTemplate restTemplate;
 	private AlbumServiceClient albumServiceClient;
+	
+	Logger logger = LoggerFactory.getLogger(getClass());
 
 	public UserServiceImpl() {
 
@@ -86,7 +90,11 @@ public class UserServiceImpl implements UserService {
 				new ParameterizedTypeReference<List<AlbumResponseModel>>() {
 				});
 		List<AlbumResponseModel> albums = exchange.getBody();*/
+		logger.info("Before sending request to album service");
+		
 		List<AlbumResponseModel> albums = albumServiceClient.getAlbums(userId);
+		
+		logger.info("After sending request to album service");
 
 		ModelMapper mp = new ModelMapper();
 		UserDto userDto = mp.map(user, UserDto.class);
